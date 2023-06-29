@@ -100,5 +100,19 @@ namespace arialibs {
       Console.WriteLine();
       Subfn.Aria(0);
     }
+
+
+    public static void Cmd() {
+      var args = Environment.GetCommandLineArgs();
+      
+      string comando = "";
+      
+      for(int c=2; c<args.Length; c++) {
+        comando+=args[c]+" ";
+      }
+
+      Subfn.Run(comando);
+      Subfn.Aria(2);
+    }
   }
 }

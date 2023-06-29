@@ -12,6 +12,7 @@ namespace arialibs {
       cmds.Add(new string[] { "create", "touch" });
       cmds.Add(new string[] { "aria" });
       cmds.Add(new string[] { "list", "ls" });
+      cmds.Add(new string[] { "cmd", "c" });
       
       Console.OutputEncoding = System.Text.Encoding.Unicode;
       Dictionary<string[], Action> ops = new Dictionary<string[], Action>();
@@ -20,12 +21,14 @@ namespace arialibs {
       ops.Add(cmds[1], () => Functions.Create());
       ops.Add(cmds[2], () => Functions.AriaCmd());
       ops.Add(cmds[3], () => Functions.List());
+      ops.Add(cmds[4], () => Functions.Cmd());
 
       Dictionary<string[], string> hlp = new Dictionary<string[], string>();
   
       hlp.Add(cmds[0], "Compiles a file written in C, C++, C# or Java (Requires GCC/CSC/JDK).");
       hlp.Add(cmds[1], "Creates a new file.");
       hlp.Add(cmds[3], "Lists files and directories.");
+      hlp.Add(cmds[4], "Executes a given cmd command.");
       
       string[] exec     = new string[] { };
 
