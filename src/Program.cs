@@ -23,7 +23,7 @@ namespace arialibs {
 
       Dictionary<string[], string> hlp = new Dictionary<string[], string>();
   
-      hlp.Add(cmds[0], "Compiles a file written in C, C++, C# or Java.");
+      hlp.Add(cmds[0], "Compiles a file written in C, C++, C# or Java (Requires GCC/CSC/JDK).");
       hlp.Add(cmds[1], "Creates a new file.");
       hlp.Add(cmds[3], "Lists files and directories.");
       
