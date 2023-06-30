@@ -88,6 +88,11 @@ namespace arialibs {
 
 
     public static void List() {
+      Visuals.WriteColor("\uf07b "+Directory.GetCurrentDirectory()+"\n", ConsoleColor.Green);
+      if (Directory.GetFiles(Directory.GetCurrentDirectory()).Length==0 && Directory.GetDirectories(Directory.GetCurrentDirectory()).Length==0) {
+        Visuals.WriteColor("This directory is empty.", ConsoleColor.Yellow);
+      }
+
       Visuals.ChangeColor(ConsoleColor.Cyan);
       foreach(var dir in Directory.GetDirectories(Directory.GetCurrentDirectory())) {
         Console.WriteLine("\uf07b "+Subfn.GetName(dir));
