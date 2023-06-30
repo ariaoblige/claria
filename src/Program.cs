@@ -8,7 +8,7 @@ namespace arialibs {
     public static void Main(String[] args) {
       List<string[]> cmds = new List<string[]>() { };
 
-      cmds.Add(new string[] { "compile" });
+      cmds.Add(new string[] { "compile", "cp" });
       cmds.Add(new string[] { "create", "touch" });
       cmds.Add(new string[] { "aria" });
       cmds.Add(new string[] { "list", "ls" });
