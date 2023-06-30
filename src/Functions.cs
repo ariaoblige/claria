@@ -105,14 +105,20 @@ namespace arialibs {
     public static void Cmd() {
       var args = Environment.GetCommandLineArgs();
       
-      string comando = "";
-      
-      for(int c=2; c<args.Length; c++) {
-        comando+=args[c]+" ";
-      }
+      if (args.Length>2) {
+        string comando = "";
+        
+        for(int c=2; c<args.Length; c++) {
+          comando+=args[c]+" ";
+        }
 
-      Subfn.Run(comando);
-      Subfn.Aria(2);
+        Subfn.Run(comando);
+        Subfn.Aria(2);
+      }
+      else {
+        Visuals.WriteColor("No command given.", ConsoleColor.Red);
+        Subfn.Aria(1);
+      }
     }
   }
 }
