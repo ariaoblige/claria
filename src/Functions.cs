@@ -125,5 +125,75 @@ namespace arialibs {
         Subfn.Aria(1);
       }
     }
+
+
+    public static void Remove() {
+      var args = Environment.GetCommandLineArgs();
+
+      if (args.Length!=3) {
+        Visuals.WriteColor("Expected an argument.", ConsoleColor.Red);
+        Subfn.Aria(1);
+      }
+      else {
+        string confirm = "";
+        string target  = "";
+
+        while (true) {
+          if (File.Exists(Directory.GetCurrentDirectory()+"/"+args[2])) {
+            Visuals.WriteColor("Found a file '"+args[1]+"' in the current directory. Delete it? [Y/N]", ConsoleColor.Yellow);
+            target = Directory.GetCurrentDirectory()+"/"+args[2];
+          }
+          else if (Directory.Exists(Directory.GetCurrentDirectory()+"/"+args[2])) {
+            Visuals.WriteColor("Found a directory '"+args[2]+"' that contains "+(Directory.GetDirectories(Directory.GetCurrentDirectory()+"/"+args[2]).Length+Directory.GetFiles(Directory.GetCurrentDirectory()+"/"+args[2]).Length).ToString()+" directories/subfiles inside it. Delete it? [Y/N]", ConsoleColor.Yellow);
+            target = Directory.GetCurrentDirectory()+"/"+args[2];
+          }
+          else {
+            Visuals.WriteColor("Could not find a file or directory with the given name.", ConsoleColor.Red);
+            Subfn.Aria(1);
+
+            break;
+          }
+
+          confirm = Console.ReadKey().KeyChar.ToString().ToUpper();
+          if (confirm=="Y") {
+            if (File.Exists(Directory.GetCurrentDirectory()+"/"+args[2])) {
+              try {
+                File.Delete(Directory.GetCurrentDirectory()+"/"+args[2]);
+                Visuals.WriteColor("\nSuccessfully deleted the file '"+args[2]+"'.", ConsoleColor.Green);
+                Subfn.Aria(0);
+                break;
+              }
+              catch {
+                Visuals.WriteColor("\nSomething went wrong when deleting the file.", ConsoleColor.Red);
+                Subfn.Aria(1);
+                break;
+              }
+            }
+            else {
+              try {
+                Directory.Delete(Directory.GetCurrentDirectory()+"/"+args[2], true);
+                Visuals.WriteColor("\nSuccessfully deleted the directory '"+args[2]+"'.", ConsoleColor.Green);
+                Subfn.Aria(0);
+                break;
+              }
+              catch {
+                Visuals.WriteColor("\nSomething went wrong when deleting the directory.", ConsoleColor.Red);
+                Subfn.Aria(1);
+                break;
+              }
+            }
+          }
+          else if (confirm=="N") {
+            Console.WriteLine();
+            Subfn.Aria(2);
+            break;
+          }
+          else {
+            Visuals.WriteColor("\nExpected 'Y', 'y', 'N' or 'n'.", ConsoleColor.Red);
+            Subfn.Aria(1);
+          }
+        }
+      }
+    }
   }
 }

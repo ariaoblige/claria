@@ -13,6 +13,7 @@ namespace arialibs {
       cmds.Add(new string[] { "aria" });
       cmds.Add(new string[] { "list", "ls" });
       cmds.Add(new string[] { "cmd", "c" });
+      cmds.Add(new string[] { "remove", "rm", "rmdir", "del" });
       
       Console.OutputEncoding = System.Text.Encoding.Unicode;
       Dictionary<string[], Action> ops = new Dictionary<string[], Action>();
@@ -22,6 +23,7 @@ namespace arialibs {
       ops.Add(cmds[2], () => Functions.AriaCmd());
       ops.Add(cmds[3], () => Functions.List());
       ops.Add(cmds[4], () => Functions.Cmd());
+      ops.Add(cmds[5], () => Functions.Remove());
 
       Dictionary<string[], string> hlp = new Dictionary<string[], string>();
   
@@ -29,7 +31,8 @@ namespace arialibs {
       hlp.Add(cmds[1], "Creates a new file.");
       hlp.Add(cmds[3], "Lists files and directories.");
       hlp.Add(cmds[4], "Executes a given cmd command.");
-      
+      hlp.Add(cmds[5], "Deletes a given file or directory.");
+
       string[] exec     = new string[] { };
 
       if (args.Length > 0) {
