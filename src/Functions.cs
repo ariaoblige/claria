@@ -140,7 +140,7 @@ namespace arialibs {
 
         while (true) {
           if (File.Exists(Directory.GetCurrentDirectory()+"/"+args[2])) {
-            Visuals.WriteColor("Found a file '"+args[1]+"' in the current directory. Delete it? [Y/N]", ConsoleColor.Yellow);
+            Visuals.WriteColor("Found a file '"+args[2]+"' in the current directory. Delete it? [Y/N]", ConsoleColor.Yellow);
             target = Directory.GetCurrentDirectory()+"/"+args[2];
           }
           else if (Directory.Exists(Directory.GetCurrentDirectory()+"/"+args[2])) {
