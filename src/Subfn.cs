@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 
  /*
  * SUBFN
@@ -10,11 +11,22 @@ using System.Diagnostics;
 
 namespace arialibs {
   public class Subfn {
-    public static void Run(string command) {
-      ProcessStartInfo pcss = new ProcessStartInfo("cmd.exe", "/C "+command);
+    public static void Run(string command="", bool cwindow=false, string dir="") {
+      ProcessStartInfo pcss = new ProcessStartInfo("cmd.exe");
+      if (command!="") {
+        pcss = new ProcessStartInfo("cmd.exe", command);
+      }
       pcss.UseShellExecute = false;
+      if (cwindow) {
+        pcss.UseShellExecute = true;
+      }
+      if (dir!="") {
+        pcss.WorkingDirectory=dir;
+      }
       var pcssExec = Process.Start(pcss);
-      pcssExec.WaitForExit();
+      if (!cwindow) {
+        pcssExec.WaitForExit();
+      }
     }
 
 

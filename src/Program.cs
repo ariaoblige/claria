@@ -14,6 +14,9 @@ namespace arialibs {
       cmds.Add(new string[] { "list", "ls" });
       cmds.Add(new string[] { "cmd", "c" });
       cmds.Add(new string[] { "remove", "rm", "rmdir", "del" });
+      cmds.Add(new string[] { "listar", "gstar", "gst" });
+      cmds.Add(new string[] { "addstar", "star", "st" });
+      cmds.Add(new string[] { "gostar", "goto", "cd" });
       
       Console.OutputEncoding = System.Text.Encoding.Unicode;
       Dictionary<string[], Action> ops = new Dictionary<string[], Action>();
@@ -24,6 +27,9 @@ namespace arialibs {
       ops.Add(cmds[3], () => Functions.List());
       ops.Add(cmds[4], () => Functions.Cmd());
       ops.Add(cmds[5], () => Functions.Remove());
+      ops.Add(cmds[6], () => Functions.GetStars());
+      ops.Add(cmds[7], () => Functions.AddStar());
+      ops.Add(cmds[8], () => Functions.GoThere());
 
       Dictionary<string[], string> hlp = new Dictionary<string[], string>();
   
@@ -32,6 +38,9 @@ namespace arialibs {
       hlp.Add(cmds[3], "Lists files and directories.");
       hlp.Add(cmds[4], "Executes a given cmd command.");
       hlp.Add(cmds[5], "Deletes a given file or directory.");
+      hlp.Add(cmds[6], "Lists every starred directory.");
+      hlp.Add(cmds[7], "Adds the current directory to the stars list with a given name");
+      hlp.Add(cmds[8], "Opens a new console window with the directory set to the given star name.");
 
       string[] exec     = new string[] { };
 
@@ -48,8 +57,9 @@ namespace arialibs {
         try {
           ops[exec]();
         }
-        catch {
+        catch (Exception e){
           Visuals.WriteColor("Not a valid command.", ConsoleColor.Red);
+          Console.WriteLine(e);
           Subfn.Aria(1);
         }
       }

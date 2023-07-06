@@ -5,7 +5,10 @@ using System.IO;
 
 namespace arialibs {
   public class Functions {
+    // ATTRIBUTES
+    private static string programPath = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString();
 
+    // METHODS
     public static void Compile() {
       var args = Environment.GetCommandLineArgs();
       if (!args[2].Contains(".")) {
@@ -43,7 +46,7 @@ namespace arialibs {
             }
           }
           if (!err) {
-            Subfn.Run(commandDict[run]);
+              Subfn.Run("/C "+commandDict[run]);
             Subfn.Aria(2);
           }
           else {
@@ -111,7 +114,7 @@ namespace arialibs {
       var args = Environment.GetCommandLineArgs();
       
       if (args.Length>2) {
-        string comando = "";
+        string comando = "/C ";
         
         for(int c=2; c<args.Length; c++) {
           comando+=args[c]+" ";
@@ -192,6 +195,92 @@ namespace arialibs {
             Visuals.WriteColor("\nExpected 'Y', 'y', 'N' or 'n'.", ConsoleColor.Red);
             Subfn.Aria(1);
           }
+        }
+      }
+    }
+
+
+    public static void GetStars() {
+      if (!File.Exists(programPath+"/stars.txt")) {
+        var create = File.Create(programPath+"/stars.txt");
+        create.Close();
+      }
+      
+      var configfile = File.ReadAllLines(programPath+"/stars.txt");
+
+      for(var c=0; c<configfile.Length;c++) {
+        if (c%2==0) {
+          Visuals.WriteColor("\uf005  "+configfile[c], ConsoleColor.Yellow);
+        }
+        else {
+          Visuals.WriteColor("  \udb80\ude4b  "+configfile[c], ConsoleColor.Green);
+        }
+      }
+      if (configfile.Length==0) {
+        Visuals.WriteColor("You haven't starred any directories yet.", ConsoleColor.Yellow);
+      }
+      Subfn.Aria(0);
+    }
+
+
+    public static void AddStar() {
+      var args = Environment.GetCommandLineArgs();
+      if (!File.Exists(programPath+"/stars.txt")) {
+        var create = File.Create(programPath+"/stars.txt");
+        create.Close();
+      }
+      var configfile = File.ReadAllLines(programPath+"/stars.txt");
+      if (args.Length==3) {
+        var name = args[2];
+        
+        var starexists = false;
+        foreach(var star in configfile) {
+          if (args[2]==star) {
+            starexists=true;
+          }
+        }
+        
+        if (!starexists) {
+          if (configfile.Length>0) {
+            File.AppendAllText(programPath+"/stars.txt", "\n"+name+"\n"+Directory.GetCurrentDirectory());
+            Subfn.Aria(0);
+          } else {
+            File.AppendAllText(programPath+"/stars.txt", name+"\n"+Directory.GetCurrentDirectory());
+            Subfn.Aria(0);
+          }
+        }
+        else {
+          Visuals.WriteColor("Name already taken.", ConsoleColor.Red);
+
+          Subfn.Aria(1);
+        }
+      }
+      else {
+        Visuals.WriteColor("Expected three arguments.", ConsoleColor.Red);
+
+        Subfn.Aria(1);
+      }
+    }
+
+
+    public static void GoThere() {
+      var args = Environment.GetCommandLineArgs();
+      var cfglines = File.ReadAllLines(programPath+"/stars.txt");
+      var where = "C:/";
+      if (args.Length<3) {
+        Visuals.WriteColor("Expected a star reference.", ConsoleColor.Red);
+        Subfn.Aria(1);
+      }
+      else {
+        for(var c=0;c<cfglines.Length;c++) {
+          if (cfglines[c]==args[2]) {
+            where = cfglines[c+1];
+          }
+        }
+
+        if (args.Length==3) {
+          Subfn.Run(cwindow:true, dir:where);
+          
         }
       }
     }
