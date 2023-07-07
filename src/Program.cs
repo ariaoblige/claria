@@ -78,7 +78,7 @@ namespace arialibs {
               }
             }
             else if (c==h.Key.Length-1){
-              Visuals.WriteColorN(h.Key[c]+"\n", ConsoleColor.DarkGray);
+              Visuals.WriteColorN(", "+h.Key[c]+"\n", ConsoleColor.DarkGray);
             }
             else {
               Visuals.WriteColorN(", "+h.Key[c], ConsoleColor.DarkGray);
